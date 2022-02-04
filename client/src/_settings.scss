@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+// settings
+*,
+*:before,
+*:after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Roboto", sans-serif;
+	scroll-behavior: smooth;
+	text-decoration: none;
+	border: none;
+}
+
+// colors
+$color-primary: #fd2d01;
+$color-secondary: #ffd7d7;
+$color-tertiary: #161036;
+
+$red: hsl(3, 89%, 53%);
+$yellow: hsl(42, 95%, 48%);
+$green: hsl(118, 60%, 44%);
