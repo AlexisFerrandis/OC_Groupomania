@@ -1,7 +1,7 @@
-const dbConnexion = require("../config/db");
+const db = require("../config/db").getDB();
 const jwt = require("jsonwebtoken");
 
-module.exports.requireAuth = (req, res, next) => {
+module.exports = (req, res, next) => {
 	const token = req.cookies.jwt;
 	try {
 		if (token) {
@@ -12,10 +12,9 @@ module.exports.requireAuth = (req, res, next) => {
 					next();
 				} else {
 					const { id: userId } = decodedToken;
-					const db = dbConnexion.getDB();
 					const sqlRequest = `SELECT id FROM user WHERE id = ${userId}`;
 					db.query(sqlRequest, (err, result) => {
-						if (err) res.status(204).json(err);
+						if (err) res.status(204).json({ err });
 						else {
 							next();
 						}

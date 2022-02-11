@@ -1,12 +1,11 @@
 const bcrypt = require("bcrypt");
-const dbConnexion = require("../config/db");
+const db = require("../config/db").getDB();
 const jwt = require("jsonwebtoken");
 
 // signup
 module.exports.signUp = async (req, res) => {
 	try {
 		const userPassword = req.body.password;
-
 		// salt pwd
 		const salt = await bcrypt.genSalt(9);
 		const hash = await bcrypt.hash(userPassword, salt);
@@ -16,11 +15,9 @@ module.exports.signUp = async (req, res) => {
 			password: hash,
 		};
 
-		// TOTO check values for security
+		// TODO check values for security
 
 		const sqlRequest = `INSERT INTO user (user_first_name, user_last_name, user_mail, user_password) VALUES ('${user.firstname}', '${user.lastname}', '${user.mail}', '${user.password}')`;
-		const db = dbConnexion.getDB();
-
 		db.query(sqlRequest, user, (err, result) => {
 			if (err) {
 				res.status(200).json({ err: "email already exist" });
@@ -37,8 +34,7 @@ module.exports.signUp = async (req, res) => {
 // signin
 module.exports.signIn = async (req, res) => {
 	const userMail = req.body.mail;
-	const sqlRequest = `SELECT user_first_name, user_last_name, user_password, id FROM user WHERE user_mail='${userMail}'`;
-	const db = dbConnexion.getDB();
+	const sqlRequest = `SELECT user_first_name, user_last_name, user_password, user_id FROM user WHERE user_mail='${userMail}'`;
 
 	db.query(sqlRequest, async (err, result) => {
 		if (err) return res.status(404).json({ err });
