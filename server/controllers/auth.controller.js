@@ -1,29 +1,32 @@
 const bcrypt = require("bcrypt");
 const dbConnexion = require("../config/db");
+const jwt = require("jsonwebtoken");
 
 // signup
-exports.signUp = async (req, res) => {
+module.exports.signUp = async (req, res) => {
 	try {
-		const user_password = req.body.password;
+		const userPassword = req.body.password;
 
 		// salt pwd
 		const salt = await bcrypt.genSalt(9);
-		const saltPassword = await bcrypt.hash(user_password, salt);
+		const hash = await bcrypt.hash(userPassword, salt);
 
 		const user = {
 			...req.body,
-			user_password: saltPassword,
+			password: hash,
 		};
 
-		const sqlRequest = `INSERT INTO user (name, firstname, mail, user_password) VALUES ('${user.name}', '${user.firstname}', '${user.mail}', '${user.user_password}')`;
+		// TOTO check values for security
+
+		const sqlRequest = `INSERT INTO user (user_first_name, user_last_name, user_mail, user_password) VALUES ('${user.firstname}', '${user.lastname}', '${user.mail}', '${user.password}')`;
 		const db = dbConnexion.getDB();
 
-		db.query(sqlRequest, user, (err, result) => {
+		db.query(sqlRequest, user, (err, results) => {
 			if (err) {
 				res.status(200).json({ err: "email already exist" });
 				return;
 			} else {
-				res.status(201).json({ message: "user created, welcome " + user.name });
+				res.status(201).json({ message: "user created, welcome " + user.firstname });
 			}
 		});
 	} catch (err) {
@@ -31,6 +34,41 @@ exports.signUp = async (req, res) => {
 	}
 };
 
+// signin
 module.exports.signIn = async (req, res) => {
-	console.log("here");
+	const userMail = req.body.mail;
+	const sqlRequest = `SELECT user_first_name, user_last_name, user_password, id FROM user WHERE user_mail='${userMail}'`;
+	const db = dbConnexion.getDB();
+
+	db.query(sqlRequest, async (err, results) => {
+		if (err) return res.status(404).json({ err });
+
+		if (results[0]) {
+			try {
+				const userPassword = req.body.password;
+				const hashedPassword = results[0].user_password;
+				const auth = await bcrypt.compare(userPassword, hashedPassword);
+				if (auth) {
+					// email found & password ✔️
+					const maxAge = 1 * (24 * 60 * 60 * 1000);
+					const userId = results[0].id;
+					const token = jwt.sign({ userId }, process.env.TOKEN_SECRET, {
+						expiresIn: maxAge,
+					});
+					res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge, sameSite: true, secure: true });
+					return res.status(200).json({ message: "logged" });
+				}
+			} catch (err) {
+				return res.status(400).json({ err });
+			}
+		} else if (!results[0]) {
+			res.status(200).json({ message: "incorrect mail or password" });
+		}
+	});
+};
+
+// logout
+module.exports.logout = (req, res) => {
+	res.cookie("jwt", "", { maxAge: 1 });
+	res.redirect("/");
 };
