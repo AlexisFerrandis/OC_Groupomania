@@ -21,7 +21,7 @@ module.exports.signUp = async (req, res) => {
 		const sqlRequest = `INSERT INTO user (user_first_name, user_last_name, user_mail, user_password) VALUES ('${user.firstname}', '${user.lastname}', '${user.mail}', '${user.password}')`;
 		const db = dbConnexion.getDB();
 
-		db.query(sqlRequest, user, (err, results) => {
+		db.query(sqlRequest, user, (err, result) => {
 			if (err) {
 				res.status(200).json({ err: "email already exist" });
 				return;
@@ -40,18 +40,18 @@ module.exports.signIn = async (req, res) => {
 	const sqlRequest = `SELECT user_first_name, user_last_name, user_password, id FROM user WHERE user_mail='${userMail}'`;
 	const db = dbConnexion.getDB();
 
-	db.query(sqlRequest, async (err, results) => {
+	db.query(sqlRequest, async (err, result) => {
 		if (err) return res.status(404).json({ err });
 
-		if (results[0]) {
+		if (result[0]) {
 			try {
 				const userPassword = req.body.password;
-				const hashedPassword = results[0].user_password;
+				const hashedPassword = result[0].user_password;
 				const auth = await bcrypt.compare(userPassword, hashedPassword);
 				if (auth) {
 					// email found & password ✔️
 					const maxAge = 1 * (24 * 60 * 60 * 1000);
-					const userId = results[0].id;
+					const userId = result[0].id;
 					const token = jwt.sign({ userId }, process.env.TOKEN_SECRET, {
 						expiresIn: maxAge,
 					});
@@ -61,7 +61,7 @@ module.exports.signIn = async (req, res) => {
 			} catch (err) {
 				return res.status(400).json({ err });
 			}
-		} else if (!results[0]) {
+		} else if (!result[0]) {
 			res.status(200).json({ message: "incorrect mail or password" });
 		}
 	});
