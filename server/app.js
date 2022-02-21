@@ -1,8 +1,10 @@
 const express = require("express");
 
 // cors
-const cors = require("cors");
 const corsOptions = require("./config/cors");
+
+// auth
+const requireAuth = require("./middlewares/auth.middleware");
 
 // tools
 const path = require("path");
@@ -15,11 +17,14 @@ const userRoutes = require("./routes/user.routes");
 
 const app = express();
 
-app.use(cors(corsOptions));
-
+app.use(corsOptions);
 app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
+
+app.get("/jwtid", requireAuth, (req, res) => {
+	res.status(200);
+});
 
 app.use("/api/user", userRoutes);
 // app.use("/api/post", postRoutes);

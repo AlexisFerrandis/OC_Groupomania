@@ -46,19 +46,32 @@ module.exports.signIn = async (req, res) => {
 				const auth = await bcrypt.compare(userPassword, hashedPassword);
 				if (auth) {
 					// email found & password ✔️
+
+					// Supp pwd from res TODO
+
 					const maxAge = 1 * (24 * 60 * 60 * 1000);
 					const userId = result[0].id;
 					const token = jwt.sign({ userId }, process.env.TOKEN_SECRET, {
 						expiresIn: maxAge,
 					});
-					res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge, sameSite: true, secure: true });
-					return res.status(200).json({ message: "logged" });
+
+					res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge });
+					return res.status(200).json({ message: "logged", token: token });
+				} else {
+					res.status(200).json({
+						error: true,
+						message: "Email ou mot de passe invalide.",
+					});
 				}
 			} catch (err) {
+				console.log(err);
 				return res.status(400).json({ err });
 			}
 		} else if (!result[0]) {
-			res.status(200).json({ message: "incorrect mail or password" });
+			res.status(200).json({
+				error: true,
+				message: "Email ou mot de passe invalide.",
+			});
 		}
 	});
 };

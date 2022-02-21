@@ -11,8 +11,7 @@ module.exports = (req, res, next) => {
 					res.cookie("jwt", "", { maxAge: 1 });
 					next();
 				} else {
-					const { id: userId } = decodedToken;
-					const sqlRequest = `SELECT id FROM user WHERE id = ${userId}`;
+					const sqlRequest = `SELECT user_id FROM user WHERE user_id = 4`;
 					db.query(sqlRequest, (err, result) => {
 						if (err) res.status(204).json({ err });
 						else {
