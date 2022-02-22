@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get("/jwtid", requireAuth, (req, res) => {
-	res.status(200);
+	res.status(200).json({ message: "authorized" });
 });
 
 app.use("/api/user", userRoutes);

@@ -6,10 +6,10 @@ const requireAuth = require("../middlewares/auth.middleware");
 // auth
 router.post("/register", authController.signUp);
 router.post("/login", authController.signIn);
-router.post("/logout", /*requireAuth, */ authController.logout);
+router.post("/logout", requireAuth, authController.logout);
 
 // user
-router.get("/:id", /*requireAuth, */ userController.userInfo);
-// router.put("/:id", /*requireAuth, */ userController.updateUser);
+router.get("/:id", requireAuth, userController.userInfo);
+router.put("/:id", requireAuth, userController.updateUser);
 
 module.exports = router;

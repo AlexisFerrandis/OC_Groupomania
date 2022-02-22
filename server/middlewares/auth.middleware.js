@@ -7,25 +7,18 @@ module.exports = (req, res, next) => {
 		if (token) {
 			jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
 				if (err) {
-					res.locals.user = null;
 					res.cookie("jwt", "", { maxAge: 1 });
 					next();
 				} else {
-					const sqlRequest = `SELECT user_id FROM user WHERE user_id = 4`;
-					db.query(sqlRequest, (err, result) => {
-						if (err) res.status(204).json({ err });
-						else {
-							next();
-						}
-					});
+					next();
 				}
 			});
 		} else {
 			res.cookie("jwt", "", { maxAge: 1 });
-			res.status(401).json({ message: "unauthorized" });
+			res.status(401);
 		}
 	} catch (err) {
 		res.cookie("jwt", "", { maxAge: 1 });
-		res.status(401).json({ message: "unauthorized" });
+		res.status(401);
 	}
 };

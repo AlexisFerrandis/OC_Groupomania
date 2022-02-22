@@ -12,5 +12,8 @@ module.exports.userInfo = (req, res, next) => {
 };
 
 module.exports.updateUser = (req, res, next) => {
-	// here
+	// if profil pic
+	if (req.file) {
+		console.log("here");
+	}
 };

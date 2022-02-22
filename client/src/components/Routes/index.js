@@ -5,13 +5,11 @@ import Home from "../../pages/Home";
 import Profil from "../../pages/Profil";
 import NotFound from "../../pages/NotFound";
 import Log from "../../pages/Log";
-// import Navbar from "../Navbar";
 
 const index = () => {
 	return (
 		<div>
 			<Router>
-				{/* <Navbar /> */}
 				<Routes>
 					<Route path="/" exact element={<Home />} />
 					<Route path="/connexion" exact element={<Log />} />

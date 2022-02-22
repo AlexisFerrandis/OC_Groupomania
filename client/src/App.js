@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { UidContext } from "./components/AppContext";
+import { UserContext } from "./components/AppContext";
 import Routes from "./components/Routes";
 import axios from "axios";
+import NavBar from "./components/NavBar";
 
 function App() {
-	const [uid, setUid] = useState(null);
+	const [userConnexion, setUserConnexion] = useState(null);
 
 	useEffect(() => {
 		const fetchToken = async () => {
@@ -14,20 +15,21 @@ function App() {
 				withCredentials: true,
 			})
 				.then((res) => {
-					console.log(res);
-					setUid(res.data);
+					setUserConnexion(true);
 				})
-				.catch((err) => console.log(err + "no token"));
+				.catch((err) => {
+					setUserConnexion(false);
+				});
 		};
 		fetchToken();
-	}, [uid]);
+	}, [userConnexion]);
 
 	return (
-		<div className="App">
-			<h1>Groupomania</h1>
-			<UidContext.Provider value={uid}>
+		<div className="app">
+			<NavBar />
+			<UserContext.Provider value={userConnexion}>
 				<Routes />
-			</UidContext.Provider>
+			</UserContext.Provider>
 		</div>
 	);
 }
