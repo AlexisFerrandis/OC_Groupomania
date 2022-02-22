@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import SignInForm from "./SignInForm";
 
 const SignUpForm = () => {
 	const [formSubmit, setFormSubmit] = useState(false);
@@ -56,7 +55,6 @@ const SignUpForm = () => {
 		<>
 			{formSubmit ? (
 				<>
-					<SignInForm />
 					<span></span>
 					<h4 className="success">Enregistrement réussi, veuillez vous connecter</h4>
 				</>
@@ -74,7 +72,7 @@ const SignUpForm = () => {
 					<div className="lastname error"></div>
 					<br />
 
-					<label htmlFor="mail">mail</label>
+					<label htmlFor="mail">Adresse email</label>
 					<br />
 					<input type="text" name="mail" id="mail" onChange={(e) => setmail(e.target.value)} value={mail} />
 					<div className="mail error"></div>
@@ -93,7 +91,7 @@ const SignUpForm = () => {
 					<br />
 					<br />
 
-					<input type="submit" value="valider l'inscription"></input>
+					<input type="submit" value="Valider l'inscription"></input>
 				</form>
 			)}
 		</>

@@ -25,6 +25,7 @@ const SignInForm = () => {
 					if (res.data.error) {
 						error.innerHTML = res.data.message;
 					} else {
+						console.log(res);
 						window.location = "/";
 					}
 				})
@@ -39,9 +40,11 @@ const SignInForm = () => {
 	return (
 		<div>
 			<form action="" onSubmit={handleLogin} id="sign-up-form">
-				<label htmlFor="mail">mail</label>
+				<label htmlFor="mail">Mail</label>
 				<br />
 				<input type="text" name="mail" id="mail" value={mail} onChange={(e) => setmail(e.target.value)} />
+				<br />
+				<br />
 				<br />
 				<label htmlFor="password">Mot de passe</label>
 				<br />

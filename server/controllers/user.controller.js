@@ -7,13 +7,12 @@ module.exports.userInfo = (req, res, next) => {
 		if (err) {
 			res.status(404).json({ err });
 		}
-		res.status(200).json("get " + result[0].user_first_name + "'s information");
+		res.status(200).json(result[0]);
 	});
 };
 
 module.exports.updateUser = (req, res, next) => {
 	// if profil pic
 	if (req.file) {
-		console.log("here");
 	}
 };

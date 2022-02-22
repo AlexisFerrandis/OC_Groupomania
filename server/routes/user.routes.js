@@ -9,7 +9,7 @@ router.post("/login", authController.signIn);
 router.get("/logout", authController.logout);
 
 // user
-router.get("/:id", requireAuth, userController.userInfo);
+router.get("/:id", userController.userInfo);
 router.put("/:id", requireAuth, userController.updateUser);
 
 module.exports = router;

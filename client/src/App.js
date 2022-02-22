@@ -4,7 +4,7 @@ import Routes from "./components/Routes";
 import axios from "axios";
 
 function App() {
-	const [userConnexion, setUserConnexion] = useState(null);
+	const [userId, setUserId] = useState(null);
 
 	useEffect(() => {
 		const fetchToken = async () => {
@@ -14,18 +14,20 @@ function App() {
 				withCredentials: true,
 			})
 				.then((res) => {
-					setUserConnexion(true);
+					setUserId(res.data);
 				})
 				.catch((err) => {
-					setUserConnexion(false);
+					setUserId(false);
 				});
 		};
 		fetchToken();
-	}, [userConnexion]);
+
+		if (userId);
+	}, [userId]);
 
 	return (
 		<div className="app">
-			<UserContext.Provider value={userConnexion}>
+			<UserContext.Provider value={userId}>
 				<Routes />
 			</UserContext.Provider>
 		</div>

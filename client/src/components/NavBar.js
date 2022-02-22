@@ -3,21 +3,38 @@ import { NavLink } from "react-router-dom";
 import Logout from "./Log/Logout";
 import { useContext } from "react";
 import { UserContext } from "./AppContext";
+// import axios from "axios";
 
 const NavBar = () => {
-	const userConnexion = useContext(UserContext);
+	const userId = useContext(UserContext);
+
+	// const getUserName = async () => {
+	// 	await axios({
+	// 		method: "get",
+	// 		url: `${process.env.REACT_APP_API_URL}api/user/1`,
+	// 		withCredentials: true,
+	// 	})
+	// 		.then((res) => {
+	// 			console.log(res);
+	// 		})
+	// 		.catch((err) => {
+	// 			console.log(err);
+	// 		});
+	// };
+	// getUserName();
 
 	return (
 		<div className="nav-container">
+			<ul></ul>
 			<NavLink to="/">
 				<img className="logo" src="./assets/logos/icon-left-font-monochrome-black.png" alt="logo" />
 			</NavLink>
-			{userConnexion ? (
+			{userId ? (
 				<ul>
 					<li></li>
 					<li className="welcome">
 						<NavLink to="/profil">
-							<h5>Bienvenue UTILISATEUR</h5>
+							<img className="profil-pic" src="./assets/img/default.jpg" alt="profil-pic" />
 						</NavLink>
 					</li>
 					<Logout />

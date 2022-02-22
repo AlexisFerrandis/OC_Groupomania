@@ -1,10 +1,28 @@
 .nav-container {
+	padding: 1.1em 1em 0.8em;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #ffd7d7d8;
 	.logo {
-		width: 300px;
+		width: 250px;
 		object-fit: contain;
 	}
+	ul {
+		display: flex;
+		justify-content: flex-end;
+		width: 250px;
+	}
+	.profil-pic {
+		border-radius: 100%;
+		width: 42px;
+		height: 42px;
+		border: solid 1px $color-tertiary;
+		margin-right: 1em;
+	}
 	.logout {
-		width: 32px;
-		height: 32px;
+		width: 42px;
+		height: 42px;
+		cursor: pointer;
 	}
 }

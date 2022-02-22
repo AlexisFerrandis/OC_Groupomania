@@ -15,9 +15,6 @@
 	list-style-type: none;
 	outline: none;
 }
-body {
-	background-color: #ffd7d7;
-}
 
 // colors
 $color-primary: #fd2d01;
@@ -27,3 +24,7 @@ $color-tertiary: #161036;
 $red: #f2271c;
 $yellow: #efa906;
 $green: #31b42d;
+
+// anim
+
+$short-anim: 200ms;

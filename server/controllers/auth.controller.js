@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const db = require("../config/db").getDB();
 const jwt = require("jsonwebtoken");
+const Errors = require("../utils/errors.utils");
 
 // signup
 module.exports.signUp = async (req, res) => {
@@ -20,8 +21,8 @@ module.exports.signUp = async (req, res) => {
 		const sqlRequest = `INSERT INTO user (user_first_name, user_last_name, user_mail, user_password) VALUES ('${user.firstname}', '${user.lastname}', '${user.mail}', '${user.password}')`;
 		db.query(sqlRequest, user, (err, result) => {
 			if (err) {
-				// TODO handle errors
-				res.status(200).json({ err: "email already exist" });
+				const errors = Errors(err);
+				res.status(200).json({ errors });
 				return;
 			} else {
 				res.status(201).json({ message: "user created, welcome " + user.firstname });

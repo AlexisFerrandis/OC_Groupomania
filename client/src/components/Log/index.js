@@ -17,20 +17,23 @@ const Log = () => {
 	};
 
 	return (
-		<div className="connection-form">
-			<div className="form-container">
-				<ul>
-					<li onClick={handleModals} id="register" className={signUpModal ? "active-btn" : null}>
-						S'inscrire
-					</li>
-					<li onClick={handleModals} id="login" className={signInModal ? "active-btn" : null}>
-						Se connecter
-					</li>
-				</ul>
-				{signUpModal && <SignUpForm />}
-				{signInModal && <SignInForm />}
+		<>
+			<div className="connection-form">
+				<div className="form-container">
+					<ul>
+						<li onClick={handleModals} id="register" className={signUpModal ? "active" : null}>
+							S'inscrire
+						</li>
+						<li onClick={handleModals} id="login" className={signInModal ? "active" : null}>
+							Se connecter
+						</li>
+					</ul>
+					{signUpModal && <SignUpForm />}
+					{signInModal && <SignInForm />}
+				</div>
 			</div>
-		</div>
+			<img className="log-illustration" src="./assets/img/christina-wocintechchat-com-l6iKdDtkirk-unsplash.jpg" alt="Enceinte de l'entreprise" />
+		</>
 	);
 };
 

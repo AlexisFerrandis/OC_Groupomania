@@ -1,0 +1,36 @@
+.submit-btn {
+	border-radius: 20px;
+	padding: 1em;
+	background-color: $color-secondary;
+	color: $color-tertiary;
+	font-weight: 600;
+	font-size: 1em;
+	-webkit-box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.44);
+	box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.44);
+	cursor: pointer;
+	transition: $short-anim;
+	&:hover {
+		transform: scale(1.03);
+	}
+	&:active {
+		transform: scale(0.98);
+	}
+}
+.edit-btn {
+	border-radius: 20px;
+	padding: 1em;
+	background-color: $color-tertiary;
+	color: white;
+	font-weight: 600;
+	font-size: 1em;
+	-webkit-box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.44);
+	box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.44);
+	cursor: pointer;
+	transition: $short-anim;
+	&:hover {
+		transform: scale(1.03);
+	}
+	&:active {
+		transform: scale(0.98);
+	}
+}

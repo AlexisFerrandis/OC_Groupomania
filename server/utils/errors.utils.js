@@ -1,4 +1,4 @@
-module.exports.signUpErrors = (err) => {
+module.exports = (err) => {
 	let errors = {
 		firstname: "",
 		lastname: "",

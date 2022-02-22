@@ -3,9 +3,9 @@ import { UserContext } from "../components/AppContext";
 import Log from "../components/Log";
 
 const Home = () => {
-	const userConnexion = useContext(UserContext);
+	const userId = useContext(UserContext);
 
-	return <div>{!userConnexion ? <Log /> : <h1>POSTS</h1>}</div>;
+	return <div>{!userId ? <Log /> : <h1>POSTS</h1>}</div>;
 };
 
 export default Home;
