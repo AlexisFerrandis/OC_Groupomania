@@ -2,10 +2,9 @@ import React, { useContext } from "react";
 import { UserContext } from "../components/AppContext";
 import Log from "../components/Log";
 
-const Home = () => {
+const Connexion = () => {
 	const userConnexion = useContext(UserContext);
-
-	return <div>{!userConnexion ? <Log /> : <h1>POSTS</h1>}</div>;
+	return <div>{!userConnexion ? <Log /> : <h1>Already Connected</h1>}</div>;
 };
 
-export default Home;
+export default Connexion;

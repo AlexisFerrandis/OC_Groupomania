@@ -20,6 +20,7 @@ module.exports.signUp = async (req, res) => {
 		const sqlRequest = `INSERT INTO user (user_first_name, user_last_name, user_mail, user_password) VALUES ('${user.firstname}', '${user.lastname}', '${user.mail}', '${user.password}')`;
 		db.query(sqlRequest, user, (err, result) => {
 			if (err) {
+				// TODO handle errors
 				res.status(200).json({ err: "email already exist" });
 				return;
 			} else {
@@ -78,6 +79,6 @@ module.exports.signIn = async (req, res) => {
 
 // logout
 module.exports.logout = (req, res) => {
-	res.cookie("jwt", "", { maxAge: 1 });
+	res.clearCookie("jwt");
 	res.redirect("/");
 };

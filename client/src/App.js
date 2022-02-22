@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { UserContext } from "./components/AppContext";
 import Routes from "./components/Routes";
 import axios from "axios";
-import NavBar from "./components/NavBar";
 
 function App() {
 	const [userConnexion, setUserConnexion] = useState(null);
@@ -26,7 +25,6 @@ function App() {
 
 	return (
 		<div className="app">
-			<NavBar />
 			<UserContext.Provider value={userConnexion}>
 				<Routes />
 			</UserContext.Provider>

@@ -6,7 +6,7 @@ const requireAuth = require("../middlewares/auth.middleware");
 // auth
 router.post("/register", authController.signUp);
 router.post("/login", authController.signIn);
-router.post("/logout", requireAuth, authController.logout);
+router.get("/logout", authController.logout);
 
 // user
 router.get("/:id", requireAuth, userController.userInfo);
