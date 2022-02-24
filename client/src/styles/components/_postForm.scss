@@ -1,0 +1,19 @@
+.post-container {
+	width: 95%;
+	max-width: 900px;
+	background-color: $color-secondary;
+	border-radius: 7px;
+	margin: 1em auto 0;
+	padding: 2em;
+	img {
+		width: 42px;
+		height: 42px;
+	}
+	.post-form {
+		#message {
+			width: 100%;
+			max-width: 100%;
+			padding: 0.5em;
+		}
+	}
+}

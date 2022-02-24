@@ -8,20 +8,22 @@ const UserInfos = ({ userFirstName, userLastName, userMail }) => {
 				Profil de <span>{userFirstName}</span>
 			</h1>
 			<div className="info">
-				<p>
-					Prenom :<span>{userFirstName}</span>
-				</p>
-			</div>
-			<div className="info">
-				<p>
-					Nom :<span>{userLastName}</span>
-				</p>
-			</div>
-			<div className="info">
-				<p>
-					Email:
-					<span>{userMail}</span>
-				</p>
+				<div>
+					<p>
+						Prenom :<span>{userFirstName}</span>
+					</p>
+				</div>
+				<div>
+					<p>
+						Nom :<span>{userLastName}</span>
+					</p>
+				</div>
+				<div>
+					<p>
+						Email:
+						<span>{userMail}</span>
+					</p>
+				</div>
 			</div>
 			<Logout />
 			<div id="deleteAccount">Supprimer le compte</div>
