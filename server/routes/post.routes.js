@@ -5,7 +5,7 @@ const upload = multer();
 
 router.get("/", postController.getAllPosts);
 router.post("/", upload.single("file"), postController.createPost);
-router.put("/:id", postController.updatePost);
+router.post("/:id", postController.updatePost);
 router.delete("/:id", postController.deletePost);
 
 // //likes

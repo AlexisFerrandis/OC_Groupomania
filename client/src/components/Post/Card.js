@@ -16,6 +16,7 @@ const Card = ({ post }) => {
 	const [textUpdate, setTextUpdate] = useState(null);
 	const [showComments, setShowComments] = useState(false);
 
+	// get poster info
 	useEffect(() => {
 		const getPosterInfo = async () => {
 			await axios({
@@ -36,9 +37,29 @@ const Card = ({ post }) => {
 		if (posterPic);
 	}, [posterPic, post.poster_id]);
 
+	// update publication
 	const updateItem = () => {
 		if (textUpdate) {
-			// TODO Mettre a jour le post
+			const formData = new FormData();
+			formData.append("name", 42);
+			axios({
+				method: "post",
+				baseURL: `${process.env.REACT_APP_API_URL}api/post/${post.post_id}`,
+				withCredentials: true,
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+				data: formData,
+			})
+				.then((res) => {
+					if (res.err) {
+						console.log(res.err);
+					}
+					console.log(res);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		}
 		setIsUpdated(false);
 	};
@@ -53,7 +74,7 @@ const Card = ({ post }) => {
 					</div>
 					<span>{post.post_date}</span>
 				</div>
-				{isUpdated === false && <p>{post.post_message}</p>}
+				{isUpdated === false && <p className="post-message">{post.post_message}</p>}
 				{isUpdated && (
 					<div className="update-post">
 						<textarea defaultValue={post.post_message} onChange={(e) => setTextUpdate(e.target.value)} />
@@ -70,6 +91,7 @@ const Card = ({ post }) => {
 					<div className="button-container">
 						<div onClick={() => setIsUpdated(!isUpdated)}>
 							<img src="./assets/pictos/edit.svg" alt="edit" />
+							<p>Edit</p>
 						</div>
 						<DeletePost id={post._id} />
 					</div>

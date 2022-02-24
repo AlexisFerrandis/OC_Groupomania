@@ -1,7 +1,7 @@
 import React from "react";
 
 const DeletePost = () => {
-	return <div>DELETE</div>;
+	return <div>IMG DELETE</div>;
 };
 
 export default DeletePost;

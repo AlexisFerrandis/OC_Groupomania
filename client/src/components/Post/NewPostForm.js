@@ -59,6 +59,7 @@ const NewPostForm = () => {
 					if (res.err) {
 						console.log(res.err);
 					}
+					// TODO thread append post
 				})
 				.catch((err) => {
 					console.log(err);
@@ -102,32 +103,28 @@ const NewPostForm = () => {
 
 	return (
 		<div className="post-container">
-			<div className="data">
-				<NavLink to="/profil">
-					<div className="user-info">
-						<img src={userPic} alt="user-img" />
-						<h3>{userFirstName}</h3>
-					</div>
-				</NavLink>
-			</div>
+			<NavLink to="/profil">
+				<div className="user-info">
+					<img src={userPic} alt="user-img" className="user-img" />
+					<h3>{userFirstName}</h3>
+				</div>
+			</NavLink>
 			<div className="post-form">
 				<textarea name="message" id="message" placeholder="Quoi de neuf ?" onChange={(e) => setMessage(e.target.value)} value={message} />
 
 				{message || postPicture || video.length > 20 ? (
 					<li className="card-container">
-						<div className="card-left">
-							<img src={userPic} alt="user-img" />
-						</div>
-						<div className="card-right">
-							<div className="card-header">
-								<div className="pseudo">
-									<h3>{userFirstName}</h3>
-								</div>
-								<span>{timestampParser(Date.now())}</span>
+						<div className="card-header">
+							<img src={userPic} alt="user-img" className="user-img" />{" "}
+							<div className="poster-name">
+								<h3>{userFirstName}</h3>
 							</div>
+							<span>{timestampParser(Date.now())}</span>
+						</div>
+						<div className="card-preview">
 							<div className="content">
 								<p>{message}</p>
-								{postPicture && <img src={postPicture} alt="" />}
+								{postPicture && <img src={postPicture} alt="" className="img-preview" />}
 								{video && <iframe src={video} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen title={video}></iframe>}
 							</div>
 						</div>

@@ -1,0 +1,12 @@
+.home {
+	position: relative;
+	.logo {
+		position: fixed;
+		z-index: -1;
+		width: 90%;
+		max-width: 1200px;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}

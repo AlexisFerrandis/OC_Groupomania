@@ -17,6 +17,7 @@ const Home = () => {
 						<NewPostForm />
 						<Thread />
 					</div>
+					<img className="logo" src="./assets/logos/icon-left-font-monochrome-black.png" alt="logo" />
 				</div>
 			)}
 		</div>

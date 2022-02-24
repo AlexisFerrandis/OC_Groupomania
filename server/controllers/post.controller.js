@@ -51,7 +51,14 @@ module.exports.getAllPosts = (req, res, next) => {
 
 // update post
 module.exports.updatePost = (req, res, next) => {
-	next();
+	console.log(req.body);
+	const sqlRequest = `UPDATE post SET post_message = "${req.data}" WHERE post_id = ${req.params.id}`;
+	db.query(sqlRequest, (err, result) => {
+		if (err) {
+			res.status(404).json({ err });
+		}
+		res.status(200).json(result);
+	});
 };
 
 // delete post

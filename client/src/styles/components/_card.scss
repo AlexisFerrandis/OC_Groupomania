@@ -9,18 +9,47 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		margin-bottom: 1em;
 		.poster {
+			display: flex;
 			text-align: center;
+			align-items: center;
 			.poster-pic {
 				width: 42px;
 				height: 42px;
 				object-fit: cover;
 				border-radius: 50%;
+				margin-right: 0.5em;
 			}
 		}
 		span {
 			font-style: italic;
 			color: rgb(41, 41, 41);
+		}
+	}
+	.post-message {
+		padding: 0.5em;
+		background-color: white;
+		border-radius: 7px;
+		margin-bottom: 1em;
+	}
+	.card-pic {
+		width: 100%;
+		object-fit: cover;
+		max-height: 444px;
+		border-radius: 7px;
+	}
+	.button-container {
+		display: flex;
+		img {
+			width: 25px;
+			height: 25px;
+		}
+	}
+	.card-footer {
+		img {
+			width: 25px;
+			height: 25px;
 		}
 	}
 }
