@@ -42,7 +42,11 @@ module.exports.createPost = async (req, res, next) => {
 
 // get all posts
 module.exports.getAllPosts = (req, res, next) => {
-	next();
+	const sqlRequest = "SELECT * FROM post ORDER BY post_date ASC";
+	db.query(sqlRequest, (err, result) => {
+		if (err) res.status(404).json({ err });
+		res.status(200).json(result);
+	});
 };
 
 // update post
