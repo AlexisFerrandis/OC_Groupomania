@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const authController = require("../controllers/auth.controller");
 const userController = require("../controllers/user.controller");
+const multer = require("multer");
+const upload = multer();
+
 const requireAuth = require("../middlewares/auth.middleware");
 
 // auth
@@ -10,6 +13,6 @@ router.get("/logout", authController.logout);
 
 // user
 router.get("/:id", userController.userInfo);
-router.put("/:id", requireAuth, userController.updateUser);
+router.post("/upload", upload.single("file"), userController.updateImgProfil);
 
 module.exports = router;

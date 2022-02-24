@@ -52,13 +52,13 @@ module.exports.signIn = async (req, res) => {
 					// Supp pwd from res TODO
 
 					const maxAge = 1 * (24 * 60 * 60 * 1000);
-					const userId = result[0].id;
+					const userId = result[0].user_id;
 					const token = jwt.sign({ userId }, process.env.TOKEN_SECRET, {
 						expiresIn: maxAge,
 					});
 
 					res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge });
-					return res.status(200).json({ message: "logged", token: token });
+					res.status(200).json({ message: "logged", token: token });
 				} else {
 					res.status(200).json({
 						error: true,
@@ -81,5 +81,5 @@ module.exports.signIn = async (req, res) => {
 // logout
 module.exports.logout = (req, res) => {
 	res.clearCookie("jwt");
-	res.redirect("/");
+	res.status(200).json("logout");
 };

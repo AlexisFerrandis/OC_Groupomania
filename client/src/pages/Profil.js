@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { UserContext } from "../components/AppContext";
 import Log from "../components/Log";
+import UpdateProfil from "../components/Profil/UpdateProfil";
 
 const Profil = () => {
 	const userId = useContext(UserContext);
@@ -13,15 +14,7 @@ const Profil = () => {
 				</>
 			) : (
 				<div className="profil-page">
-					<div className="profil-picture-container">
-						<div className="profil-img">
-							<img src="./assets/img/default.jpg" alt="profil-pic" />
-						</div>
-						<div className="TODO">Changer la photo de profil</div>
-					</div>
-					<div className="infos-container">
-						<h2>Profil</h2>
-					</div>
+					<UpdateProfil />
 				</div>
 			)}
 		</div>

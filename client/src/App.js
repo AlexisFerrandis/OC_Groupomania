@@ -14,7 +14,7 @@ function App() {
 				withCredentials: true,
 			})
 				.then((res) => {
-					setUserId(res.data);
+					setUserId(res.data.userId);
 				})
 				.catch((err) => {
 					setUserId(false);

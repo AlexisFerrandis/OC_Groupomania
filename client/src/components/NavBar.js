@@ -1,27 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import Logout from "./Log/Logout";
 import { useContext } from "react";
 import { UserContext } from "./AppContext";
-// import axios from "axios";
+import axios from "axios";
 
 const NavBar = () => {
 	const userId = useContext(UserContext);
+	const [userPic, setUserPic] = useState();
+	const [userFirstName, setUserFirstName] = useState();
 
-	// const getUserName = async () => {
-	// 	await axios({
-	// 		method: "get",
-	// 		url: `${process.env.REACT_APP_API_URL}api/user/1`,
-	// 		withCredentials: true,
-	// 	})
-	// 		.then((res) => {
-	// 			console.log(res);
-	// 		})
-	// 		.catch((err) => {
-	// 			console.log(err);
-	// 		});
-	// };
-	// getUserName();
+	useEffect(() => {
+		const getPicAndNAme = async () => {
+			await axios({
+				method: "get",
+				url: `${process.env.REACT_APP_API_URL}api/user/${userId}`,
+				withCredentials: true,
+			})
+				.then((res) => {
+					setUserFirstName(res.data.user_first_name);
+					setUserPic(res.data.user_picture);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		};
+
+		getPicAndNAme();
+
+		if (userFirstName && userPic);
+	}, [userId, userFirstName, userPic]);
 
 	return (
 		<div className="nav-container">
@@ -34,10 +41,10 @@ const NavBar = () => {
 					<li></li>
 					<li className="welcome">
 						<NavLink to="/profil">
-							<img className="profil-pic" src="./assets/img/default.jpg" alt="profil-pic" />
+							{userPic ? <img className="profil-pic" src={userPic} alt="profil-pic" /> : <img className="profil-pic" src="./assets/img/default.jpg" alt="profil-pic" />}
+							<h5>{userFirstName}</h5>
 						</NavLink>
 					</li>
-					<Logout />
 				</ul>
 			) : (
 				<ul></ul>

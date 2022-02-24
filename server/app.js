@@ -22,9 +22,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 
-app.get("/jwtid", requireAuth, (req, res) => {
-	res.status(200).json(req.cookies.jwt);
-});
+app.get("/jwtid", requireAuth);
 
 app.use("/api/user", userRoutes);
 // app.use("/api/post", postRoutes);

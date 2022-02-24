@@ -13,16 +13,16 @@
 		justify-content: flex-end;
 		width: 250px;
 	}
-	.profil-pic {
-		border-radius: 100%;
-		width: 42px;
-		height: 42px;
-		border: solid 1px $color-tertiary;
-		margin-right: 1em;
-	}
-	.logout {
-		width: 42px;
-		height: 42px;
-		cursor: pointer;
+	.welcome {
+		.profil-pic {
+			border-radius: 100%;
+			width: 42px;
+			height: 42px;
+			border: solid 1px $color-tertiary;
+			margin-right: 1em;
+		}
+		h5 {
+			color: $color-tertiary;
+		}
 	}
 }
