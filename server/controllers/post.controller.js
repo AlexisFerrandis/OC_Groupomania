@@ -51,8 +51,7 @@ module.exports.getAllPosts = (req, res, next) => {
 
 // update post
 module.exports.updatePost = (req, res, next) => {
-	console.log(req.body);
-	const sqlRequest = `UPDATE post SET post_message = "${req.data}" WHERE post_id = ${req.params.id}`;
+	const sqlRequest = `UPDATE post SET post_message = "${req.body.textUpdate}" WHERE post_id = ${req.params.id}`;
 	db.query(sqlRequest, (err, result) => {
 		if (err) {
 			res.status(404).json({ err });
@@ -63,5 +62,11 @@ module.exports.updatePost = (req, res, next) => {
 
 // delete post
 module.exports.deletePost = (req, res, next) => {
-	next();
+	const sqlRequest = `DELETE FROM post WHERE post_id = ${req.params.id}`;
+	db.query(sqlRequest, (err, result) => {
+		if (err) {
+			res.status(404).json({ err });
+		}
+		res.status(200).json(result);
+	});
 };

@@ -13,7 +13,7 @@ const Card = ({ post }) => {
 	const [posterFirstName, setPosterFirstName] = useState();
 
 	const [isUpdated, setIsUpdated] = useState(false);
-	const [textUpdate, setTextUpdate] = useState(null);
+	const [textUpdate, setTextUpdate] = useState();
 	const [showComments, setShowComments] = useState(false);
 
 	// get poster info
@@ -40,22 +40,18 @@ const Card = ({ post }) => {
 	// update publication
 	const updateItem = () => {
 		if (textUpdate) {
-			const formData = new FormData();
-			formData.append("name", 42);
 			axios({
 				method: "post",
 				baseURL: `${process.env.REACT_APP_API_URL}api/post/${post.post_id}`,
 				withCredentials: true,
-				headers: {
-					"Content-Type": "multipart/form-data",
+				data: {
+					textUpdate,
 				},
-				data: formData,
 			})
 				.then((res) => {
 					if (res.err) {
 						console.log(res.err);
 					}
-					console.log(res);
 				})
 				.catch((err) => {
 					console.log(err);
@@ -66,7 +62,7 @@ const Card = ({ post }) => {
 
 	return (
 		<div>
-			<li className="card-container" key={post._id}>
+			<li className="card-container" key={post.post_id} id={post.post_id}>
 				<div className="header-card">
 					<div className="poster">
 						<img className="poster-pic" src={posterPic} alt="poster-pic" />
@@ -74,7 +70,16 @@ const Card = ({ post }) => {
 					</div>
 					<span>{post.post_date}</span>
 				</div>
-				{isUpdated === false && <p className="post-message">{post.post_message}</p>}
+				{isUpdated === false && !textUpdate && (
+					<p className="post-message" id="postMessage">
+						{post.post_message}
+					</p>
+				)}
+				{isUpdated === false && textUpdate && (
+					<p className="post-message" id="postMessage">
+						{textUpdate}
+					</p>
+				)}
 				{isUpdated && (
 					<div className="update-post">
 						<textarea defaultValue={post.post_message} onChange={(e) => setTextUpdate(e.target.value)} />
@@ -91,9 +96,8 @@ const Card = ({ post }) => {
 					<div className="button-container">
 						<div onClick={() => setIsUpdated(!isUpdated)}>
 							<img src="./assets/pictos/edit.svg" alt="edit" />
-							<p>Edit</p>
 						</div>
-						<DeletePost id={post._id} />
+						<DeletePost id={post.post_id} />
 					</div>
 				)}
 				<div className="card-footer">
