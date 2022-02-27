@@ -13,7 +13,7 @@ const requireAuth = require("./middlewares/auth.middleware");
 
 const userRoutes = require("./routes/user.routes");
 const postRoutes = require("./routes/post.routes");
-// const commentRoutes = require("./routes/comment.routes");
+const commentRoutes = require("./routes/comment.routes");
 
 const app = express();
 
@@ -22,10 +22,11 @@ app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 
+// app get * check user
 app.get("/jwtid", requireAuth);
 
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
-// app.use("/api/comment", commentRoutes);
+app.use("/api/comment", commentRoutes);
 
 module.exports = app;

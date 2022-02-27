@@ -83,7 +83,7 @@ const LikeButton = ({ post }) => {
 
 	return (
 		<div className="like-container">
-			<span>{numberOfLike} likes</span>
+			<span>{numberOfLike}</span>
 			{liked === false && <img src="./assets/pictos/heart-empty.svg" onClick={handleLike} alt="like" />}
 			{liked && <img src="./assets/pictos/heart-full.svg" onClick={handleLike} alt="unlike" />}
 		</div>

@@ -35,9 +35,14 @@
 			padding: 0.5em;
 			border-radius: 7px;
 		}
-		.btn {
-			@extend .edit-btn;
-			align-items: center;
+		.button-container {
+			display: flex;
+			justify-content: center;
+			height: 70px;
+			.btn {
+				@extend .edit-btn;
+				margin-bottom: 0.5em;
+			}
 		}
 	}
 	.post-message {
@@ -55,23 +60,47 @@
 	}
 	.button-container {
 		display: flex;
+		justify-content: space-between;
+		height: 25px;
+		.edit-button {
+			display: flex;
+			img {
+				filter: invert(7%) sepia(54%) saturate(2267%) hue-rotate(233deg) brightness(93%) contrast(102%);
+			}
+		}
+		.like-container {
+			font-size: 1.5em;
+			font-weight: 600;
+			color: $color-primary;
+			img {
+				filter: invert(43%) sepia(88%) saturate(7134%) hue-rotate(2deg) brightness(102%) contrast(104%);
+			}
+		}
 		img {
 			width: 25px;
 			height: 25px;
-			margin-right: 1em;
+			margin-left: 0.2em;
+			cursor: pointer;
+			transition: $short-anim;
+			&:hover {
+				transform: scale(1.02);
+			}
 		}
 	}
 	.card-footer {
 		img {
-			width: 25px;
-			height: 25px;
-			margin-left: 0.5em;
+			width: 32px;
+			height: 32px;
+			cursor: pointer;
+			transition: $short-anim;
+			&:hover {
+				transform: scale(1.02);
+			}
 		}
-		.like-container,
 		.comment-icon {
 			display: flex;
 			align-items: center;
-			justify-content: right;
+			justify-content: center;
 			margin-bottom: 0.5em;
 		}
 	}

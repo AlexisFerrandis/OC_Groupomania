@@ -25,7 +25,9 @@
 	font-weight: 600;
 	font-size: 1em;
 	max-width: 230px;
+	min-height: 50px;
 	margin-top: 1em;
+	z-index: 2;
 	-webkit-box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.44);
 	box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.44);
 	img {

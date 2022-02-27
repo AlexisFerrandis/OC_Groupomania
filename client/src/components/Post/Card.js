@@ -93,16 +93,17 @@ const Card = ({ post }) => {
 				{post.post_video && <iframe width="500" height="300" src={post.post_video} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen title={post.poster_id}></iframe>}
 				{userId === post.poster_id && (
 					<div className="button-container">
-						<div onClick={() => setIsUpdated(!isUpdated)}>
-							<img src="./assets/pictos/edit.svg" alt="edit" />
+						<div className="edit-button">
+							<div onClick={() => setIsUpdated(!isUpdated)}>
+								<img src="./assets/pictos/edit.svg" alt="edit" />
+							</div>
+							<DeletePost id={post.post_id} />
 						</div>
-						<DeletePost id={post.post_id} />
+						<LikeButton post={post} />
 					</div>
 				)}
 				<div className="card-footer">
-					<LikeButton post={post} />
 					<div className="comment-icon">
-						<span>0 comments</span>
 						<img onClick={() => setShowComments(!showComments)} src="./assets/pictos/comment.svg" alt="comment" />
 					</div>
 				</div>

@@ -1,6 +1,8 @@
 import axios from "axios";
 import React from "react";
 
+// TODO DELETE ASSOCIATE COMMENTS
+
 const DeleteCard = (props) => {
 	const deleteQuote = () => {
 		axios({
