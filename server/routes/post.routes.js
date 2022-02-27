@@ -8,9 +8,10 @@ router.post("/", upload.single("file"), postController.createPost);
 router.post("/:id", postController.updatePost);
 router.delete("/:id", postController.deletePost);
 
-// //likes
-// router.patch("/like-post/:id", postController.likePost);
-// router.patch("/unlike-post/:id", postController.unlikePost);
+//likes
+router.get("/likes/:id", postController.numberOfLike);
+router.post("/likes/:id", postController.alreadyLike);
+router.post("/like-unlike/:id", postController.likeUnlike);
 
 // //comments
 // router.patch("/comment-post/:id", postController.commentPost);

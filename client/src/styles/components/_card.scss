@@ -27,6 +27,19 @@
 			color: rgb(41, 41, 41);
 		}
 	}
+	.update-post {
+		textarea {
+			width: 100%;
+			max-width: 100%;
+			min-height: 75px;
+			padding: 0.5em;
+			border-radius: 7px;
+		}
+		.btn {
+			@extend .edit-btn;
+			align-items: center;
+		}
+	}
 	.post-message {
 		padding: 0.5em;
 		background-color: white;
@@ -38,18 +51,28 @@
 		object-fit: cover;
 		max-height: 444px;
 		border-radius: 7px;
+		margin-bottom: 0.5em;
 	}
 	.button-container {
 		display: flex;
 		img {
 			width: 25px;
 			height: 25px;
+			margin-right: 1em;
 		}
 	}
 	.card-footer {
 		img {
 			width: 25px;
 			height: 25px;
+			margin-left: 0.5em;
+		}
+		.like-container,
+		.comment-icon {
+			display: flex;
+			align-items: center;
+			justify-content: right;
+			margin-bottom: 0.5em;
 		}
 	}
 }

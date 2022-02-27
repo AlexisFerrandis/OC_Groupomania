@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import DeletePost from "./DeletePost";
 import LikeButton from "./LikeButton";
 import CardComments from "./CardComments";
-import { dateParser } from "../Utils";
 import { UserContext } from "../AppContext";
 import axios from "axios";
 
@@ -101,11 +100,11 @@ const Card = ({ post }) => {
 					</div>
 				)}
 				<div className="card-footer">
-					<div className="comment-icon">
-						<img onClick={() => setShowComments(!showComments)} src="./assets/pictos/comment.svg" alt="comment" />
-						<span>NOMBRE DE COMMENTAIRES</span>
-					</div>
 					<LikeButton post={post} />
+					<div className="comment-icon">
+						<span>0 comments</span>
+						<img onClick={() => setShowComments(!showComments)} src="./assets/pictos/comment.svg" alt="comment" />
+					</div>
 				</div>
 				{showComments && <CardComments post={post} />}
 			</li>

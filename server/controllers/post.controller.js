@@ -70,3 +70,58 @@ module.exports.deletePost = (req, res, next) => {
 		res.status(200).json(result);
 	});
 };
+
+//number of like(s)
+module.exports.numberOfLike = (req, res, next) => {
+	const sqlRequest = `SELECT * FROM heart WHERE post_id = ${req.params.id}`;
+	db.query(sqlRequest, (err, result) => {
+		if (err) {
+			res.status(404).json({ err });
+		}
+		res.status(200).json(result);
+	});
+};
+
+// does user already like
+module.exports.alreadyLike = (req, res, next) => {
+	const sqlRequest = `SELECT post_id, user_id FROM heart WHERE user_id = ${req.body.userId} AND post_id = ${req.params.id}`;
+	db.query(sqlRequest, (err, result) => {
+		if (err) {
+			res.status(404).json({ err });
+		}
+		if (result.length === 0) {
+			res.status(200).json(false);
+		} else {
+			res.status(200).json(true);
+		}
+	});
+};
+
+// like post
+module.exports.likeUnlike = (req, res, next) => {
+	const sqlRequest = `SELECT post_id, user_id FROM heart WHERE user_id = ${req.body.userId} AND post_id = ${req.params.id}`;
+	db.query(sqlRequest, (err, result) => {
+		if (err) {
+			res.status(404).json({ err });
+		}
+		if (result.length === 0) {
+			const sqlRequest = `INSERT INTO heart (user_id, post_id) VALUES (${req.body.userId}, ${req.params.id})`;
+			db.query(sqlRequest, (err, result) => {
+				if (err) {
+					res.status(404).json({ err });
+					throw err;
+				}
+				res.status(200).json(true);
+			});
+		} else {
+			const sqlRequest = `DELETE FROM heart WHERE user_id = ${req.body.userId} AND post_id = ${req.params.id}`;
+			db.query(sqlRequest, (err, result) => {
+				if (err) {
+					res.status(404).json(err);
+					throw err;
+				}
+				res.status(200).json(false);
+			});
+		}
+	});
+};
