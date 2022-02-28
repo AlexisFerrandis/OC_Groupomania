@@ -62,7 +62,7 @@ const UploadImg = ({ userId, userFirstName }) => {
 			<form action="" onSubmit={handlePicture} className="upload-pic">
 				<input type="file" id="file" name="file" accept=".jpg, .jpeg, .png" onChange={(e) => setFile(e.target.files[0])} />
 				<br />
-				<input className="TODO" type="submit" value="Changer la photo de profil" />
+				<input className="change-pic" type="submit" value="Changer la photo de profil" />
 			</form>
 		</div>
 	);

@@ -7,6 +7,8 @@ import DeleteComment from "./DeleteComment";
 const CardComments = ({ post }) => {
 	const userId = useContext(UserContext);
 
+	const [isAdmin, setIsAdmin] = useState(false);
+
 	const [message, setMessage] = useState("");
 	const [allComments, setAllComments] = useState([]);
 	const [getPosterInfo, setGetPosterInfo] = useState();
@@ -56,7 +58,17 @@ const CardComments = ({ post }) => {
 					if (res.err) {
 						console.log(res.err);
 					}
-					// display the new comment
+					axios({
+						method: "get",
+						url: `${process.env.REACT_APP_API_URL}api/comment/${post.post_id}`,
+						withCredentials: true,
+					})
+						.then((res) => {
+							setAllComments(res.data);
+						})
+						.catch((err) => {
+							console.log(err);
+						});
 					setMessage("");
 				})
 				.catch((err) => {
@@ -83,7 +95,32 @@ const CardComments = ({ post }) => {
 				});
 		};
 		getCommentInfo();
+		if (allComments);
 	}, []);
+
+	// is user admin
+	useEffect(() => {
+		const checkAdmin = async () => {
+			await axios({
+				method: "get",
+				url: `${process.env.REACT_APP_API_URL}api/user/${userId}`,
+				withCredentials: true,
+			})
+				.then((res) => {
+					if (res.data.isAdmin === 1) {
+						setIsAdmin(true);
+					} else {
+						setIsAdmin(false);
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		};
+		checkAdmin();
+
+		if (isAdmin);
+	}, [userId, isAdmin]);
 
 	return (
 		<div className="comments-container">
@@ -107,7 +144,7 @@ const CardComments = ({ post }) => {
 						</div>
 						<div className="bottom-part">
 							<p>{comment.comment_message}</p>
-							{userId === comment.comment_user_id && <DeleteComment comment={comment} />}
+							{(userId === comment.comment_user_id || isAdmin) && <DeleteComment comment={comment} />}
 						</div>
 					</div>
 				);

@@ -59,7 +59,7 @@ const NewPostForm = () => {
 					if (res.err) {
 						console.log(res.err);
 					}
-					// TODO thread append post
+					window.location = "/";
 				})
 				.catch((err) => {
 					console.log(err);
@@ -122,17 +122,19 @@ const NewPostForm = () => {
 		<div className="post-container">
 			<NavLink to="/profil">
 				<div className="user-info">
-					<img src={userPic} alt="user-img" className="user-img" />
+					{userPic && <img src={userPic} alt="user-img" className="user-img" />}
+					{!userPic && <img src="./assets/img/default.jpg" alt="user-img" className="user-img" />}
 					<h3>{userFirstName}</h3>
 				</div>
 			</NavLink>
 			<div className="post-form">
-				<textarea name="message" id="message" placeholder="Quoi de neuf ?" onChange={(e) => setMessage(e.target.value)} value={message} />
+				<textarea name="message" id="message" placeholder="Commencer un post" onChange={(e) => setMessage(e.target.value)} value={message} />
 
 				{message || postPicture || video.length > 20 ? (
 					<li className="card-container">
 						<div className="card-header">
-							<img src={userPic} alt="user-img" className="user-img" />{" "}
+							{userPic && <img src={userPic} alt="user-img" className="user-img" />}
+							{!userPic && <img src="./assets/img/default.jpg" alt="user-img" className="user-img" />}
 							<div className="poster-name">
 								<h3>{userFirstName}</h3>
 							</div>

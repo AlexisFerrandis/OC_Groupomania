@@ -24,30 +24,57 @@ const SignUpForm = () => {
 		passwordError.innerHTML = "";
 		passwordConfirmError.innerHTML = "";
 
+		// regex
+		function inputValidation() {
+			if (firstname.length < 24 && firstname.length >= 3 && /^([A-Za-z]{3,20})?([-]{0,1})?([A-Za-z]{3,20})$/.test(firstname)) {
+				if (lastname.length < 24 && lastname.length >= 3 && /^([A-Za-z]{3,20})?([-]{0,1})?([A-Za-z]{3,20})$/.test(lastname)) {
+					if (mail.length < 24 && mail.length > 6 && /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(mail)) {
+						if (password.length < 24 && password.length >= 8) {
+							return true;
+						} else {
+							passwordError.innerHTML = "Doit contenir entre 8 et 24 caractères";
+							return false;
+						}
+					} else {
+						mailError.innerHTML = "Email incorrect";
+						return false;
+					}
+				} else {
+					lastnameError.innerHTML = "Nom incorrect";
+					return false;
+				}
+			} else {
+				firstnameError.innerHTML = "Prénom incorrect";
+				return false;
+			}
+		}
+
 		if (password !== controlPassword) {
 			passwordConfirmError.innerHTML = "Les mots de passe ne correspondent pas";
 		} else {
-			await axios({
-				method: "post",
-				url: `${process.env.REACT_APP_API_URL}api/user/register`,
-				data: {
-					firstname,
-					lastname,
-					mail,
-					password,
-				},
-			})
-				.then((res) => {
-					if (res.data.errors) {
-						firstnameError.innerHTML = res.data.errors.firstname;
-						lastnameError.innerHTML = res.data.errors.lastname;
-						mailError.innerHTML = res.data.errors.mail;
-						passwordError.innerHTML = res.data.errors.password;
-					} else {
-						setFormSubmit(true);
-					}
+			if (inputValidation()) {
+				await axios({
+					method: "post",
+					url: `${process.env.REACT_APP_API_URL}api/user/register`,
+					data: {
+						firstname,
+						lastname,
+						mail,
+						password,
+					},
 				})
-				.catch((err) => console.log(err));
+					.then((res) => {
+						if (res.data.errors) {
+							firstnameError.innerHTML = res.data.errors.firstname;
+							lastnameError.innerHTML = res.data.errors.lastname;
+							mailError.innerHTML = res.data.errors.email;
+							passwordError.innerHTML = res.data.errors.password;
+						} else {
+							setFormSubmit(true);
+						}
+					})
+					.catch((err) => console.log(err));
+			}
 		}
 	};
 

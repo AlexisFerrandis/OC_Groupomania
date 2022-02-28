@@ -3,8 +3,8 @@
 	max-width: 900px;
 	background-color: $color-secondary;
 	border-radius: 7px;
-	margin: 1em auto 0;
-	padding: 2em;
+	margin: 1em auto 1em;
+	padding: 2em 2em 1em;
 	.header-card {
 		display: flex;
 		align-items: center;
@@ -27,6 +27,7 @@
 			color: rgb(41, 41, 41);
 		}
 	}
+
 	.update-post {
 		textarea {
 			width: 100%;
@@ -84,14 +85,7 @@
 				filter: invert(7%) sepia(54%) saturate(2267%) hue-rotate(233deg) brightness(93%) contrast(102%);
 			}
 		}
-		.like-container {
-			font-size: 1.5em;
-			font-weight: 600;
-			color: $color-primary;
-			img {
-				filter: invert(43%) sepia(88%) saturate(7134%) hue-rotate(2deg) brightness(102%) contrast(104%);
-			}
-		}
+
 		img {
 			width: 25px;
 			height: 25px;
@@ -104,6 +98,15 @@
 		}
 	}
 	.card-footer {
+		text-align: right;
+		.like-container {
+			font-size: 1.5em;
+			font-weight: 600;
+			color: $color-primary;
+			img {
+				filter: invert(43%) sepia(88%) saturate(7134%) hue-rotate(2deg) brightness(102%) contrast(104%);
+			}
+		}
 		img {
 			width: 32px;
 			height: 32px;
@@ -117,7 +120,6 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			margin-bottom: 0.5em;
 		}
 	}
 }

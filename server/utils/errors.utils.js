@@ -5,10 +5,10 @@ module.exports = (err) => {
 		email: "",
 		password: "",
 	};
-	if (err.message.includes("firstname")) errors.firstname = "Prénom incorrect ";
-	if (err.message.includes("lastname")) errors.lastname = "Nom incorrect ";
-	if (err.message.includes("email")) errors.email = "Email incorrect";
-	if (err.message.includes("password")) errors.password = "Mot de passe incorrect";
-	if (err.code == 11000 && Object.keys(err.keyValue)[0].includes("email")) errors.email = "Cet email est déjà pris";
+	if (err.sqlMessage.includes("firstname")) errors.firstname = "Prénom incorrect";
+	if (err.sqlMessage.includes("lastname")) errors.lastname = "Nom incorrect";
+	if (err.sqlMessage.includes("email")) errors.email = "Email incorrect";
+	if (err.sqlMessage.includes("password")) errors.password = "Mot de passe incorrect";
+	if (err.errno == 1062) errors.email = "Cet email est déjà pris";
 	return errors;
 };

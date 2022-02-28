@@ -8,8 +8,11 @@ import axios from "axios";
 const Card = ({ post }) => {
 	const userId = useContext(UserContext);
 
+	const [isAdmin, setIsAdmin] = useState(false);
+
 	const [posterPic, setPosterPic] = useState();
 	const [posterFirstName, setPosterFirstName] = useState();
+	const [posterLastName, setPosterLastName] = useState();
 
 	const [isUpdated, setIsUpdated] = useState(false);
 	const [textUpdate, setTextUpdate] = useState();
@@ -26,6 +29,7 @@ const Card = ({ post }) => {
 				.then((res) => {
 					setPosterPic(res.data.user_picture);
 					setPosterFirstName(res.data.user_first_name);
+					setPosterLastName(res.data.user_last_name);
 				})
 				.catch((err) => {
 					console.log(err);
@@ -59,13 +63,39 @@ const Card = ({ post }) => {
 		setIsUpdated(false);
 	};
 
+	// is user admin
+	useEffect(() => {
+		const checkAdmin = async () => {
+			await axios({
+				method: "get",
+				url: `${process.env.REACT_APP_API_URL}api/user/${userId}`,
+				withCredentials: true,
+			})
+				.then((res) => {
+					if (res.data.isAdmin === 1) {
+						setIsAdmin(true);
+					} else {
+						setIsAdmin(false);
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		};
+		checkAdmin();
+
+		if (isAdmin);
+	}, [userId, isAdmin]);
+
 	return (
 		<div>
 			<li className="card-container" key={post.post_id} id={post.post_id}>
 				<div className="header-card">
 					<div className="poster">
 						<img className="poster-pic" src={posterPic} alt="poster-pic" />
-						<h3>{posterFirstName}</h3>
+						<h3>
+							{posterFirstName} {posterLastName}
+						</h3>
 					</div>
 					<span>{post.post_date}</span>
 				</div>
@@ -96,7 +126,7 @@ const Card = ({ post }) => {
 					</a>
 				)}
 				{post.post_video && <iframe width="500" height="300" src={post.post_video} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen title={post.poster_id}></iframe>}
-				{userId === post.poster_id && (
+				{(userId === post.poster_id || isAdmin) && (
 					<div className="button-container">
 						<div className="edit-button">
 							<div onClick={() => setIsUpdated(!isUpdated)}>
@@ -104,10 +134,10 @@ const Card = ({ post }) => {
 							</div>
 							<DeletePost id={post.post_id} />
 						</div>
-						<LikeButton post={post} />
 					</div>
 				)}
 				<div className="card-footer">
+					<LikeButton post={post} />
 					<div className="comment-icon">
 						<img onClick={() => setShowComments(!showComments)} src="./assets/pictos/comment.svg" alt="comment" />
 					</div>

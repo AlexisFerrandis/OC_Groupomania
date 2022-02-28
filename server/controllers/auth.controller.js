@@ -16,10 +16,8 @@ module.exports.signUp = async (req, res) => {
 			password: hash,
 		};
 
-		// TODO check values for security
-
 		const sqlRequest = `INSERT INTO user (user_first_name, user_last_name, user_mail, user_password) VALUES ('${user.firstname}', '${user.lastname}', '${user.mail}', '${user.password}')`;
-		db.query(sqlRequest, user, (err, result) => {
+		db.query(sqlRequest, (err, result) => {
 			if (err) {
 				const errors = Errors(err);
 				res.status(200).json({ errors });
@@ -49,13 +47,12 @@ module.exports.signIn = async (req, res) => {
 				if (auth) {
 					// email found & password ✔️
 
-					// Supp pwd from res TODO
-
 					const maxAge = 1 * (24 * 60 * 60 * 1000);
 					const userId = result[0].user_id;
 					const token = jwt.sign({ userId }, process.env.TOKEN_SECRET, {
 						expiresIn: maxAge,
 					});
+					delete result[0].user_password;
 
 					res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge });
 					res.status(200).json({ message: "logged", token: token });

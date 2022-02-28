@@ -1,7 +1,6 @@
-const db = require("../config/db").getDB();
 const jwt = require("jsonwebtoken");
 
-module.exports = (req, res, next) => {
+module.exports.requireAuth = (req, res, next) => {
 	const token = req.cookies.jwt;
 	try {
 		if (token) {
@@ -18,6 +17,23 @@ module.exports = (req, res, next) => {
 			res.status(401);
 		}
 	} catch (err) {
+		res.cookie("jwt", "", { maxAge: 1 });
+		res.status(401);
+	}
+};
+
+module.exports.checkUser = (req, res, next) => {
+	const token = req.cookies.jwt;
+	if (token) {
+		jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
+			if (err) {
+				res.cookie("jwt", "", { maxAge: 1 });
+				res.status(401);
+			} else {
+				next();
+			}
+		});
+	} else {
 		res.cookie("jwt", "", { maxAge: 1 });
 		res.status(401);
 	}

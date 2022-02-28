@@ -21,8 +21,6 @@ const Thread = () => {
 				});
 		};
 		getAllPosts();
-
-		if (posts);
 	}, []);
 
 	return (

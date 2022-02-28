@@ -34,7 +34,7 @@ module.exports.createPost = async (req, res, next) => {
 	};
 
 	try {
-		const sqlRequest = `INSERT INTO post (poster_id, post_message, post_picture, post_video, post_date, post_reddit ) VALUES ('${newPost.posterId}', '${newPost.message}', '${newPost.picture}', '${newPost.video}', '${newPost.timestamps}', '${newPost.reddit}')`;
+		const sqlRequest = `INSERT INTO post (poster_id, post_message, post_picture, post_video, post_date, post_reddit ) VALUES ("${newPost.posterId}", "${newPost.message}", "${newPost.picture}", "${newPost.video}", "${newPost.timestamps}", "${newPost.reddit}")`;
 		db.query(sqlRequest, (err, result) => {
 			if (err) {
 				res.status(500).json({ err });

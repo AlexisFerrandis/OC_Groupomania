@@ -7,6 +7,9 @@ const pipeline = promisify(require("stream").pipeline);
 module.exports.userInfo = (req, res, next) => {
 	const { id: userId } = req.params;
 	const sqlRequest = `SELECT * FROM user WHERE user_id = ${userId};`;
+
+	// DELETE PASSWORD
+
 	db.query(sqlRequest, (err, result) => {
 		if (err) {
 			res.status(404).json({ err });
