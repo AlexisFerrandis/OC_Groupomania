@@ -7,13 +7,18 @@ const pipeline = promisify(require("stream").pipeline);
 module.exports.createPost = async (req, res, next) => {
 	if (req.file !== null) {
 		try {
-			if (req.file.detectedMimeType != "image/jpg" && req.file.detectedMimeType != "image/png" && req.file.detectedMimeType != "image/jpeg") throw Error("invalid file");
-			if (req.file.size > 500000) throw Error("max size");
+			if (req.file.detectedMimeType != "image/jpg" && req.file.detectedMimeType != "image/png" && req.file.detectedMimeType != "image/jpeg" && req.file.detectedMimeType != "image/gif") throw Error("invalid file");
+			if (req.file.size > 2500000) throw Error("max size");
 		} catch (err) {
 			return res.status(201).json({ err });
 		}
 
-		fileName = req.body.posterId + Date.now() + ".jpg";
+		if (req.file.detectedMimeType == "image/gif") {
+			fileName = req.body.posterId + Date.now() + ".gif";
+		} else {
+			fileName = req.body.posterId + Date.now() + ".jpg";
+		}
+
 		const path = `${__dirname}/../../client/public/uploads/posts/${fileName}`;
 
 		await pipeline(req.file.stream, fs.createWriteStream(path));
@@ -24,11 +29,12 @@ module.exports.createPost = async (req, res, next) => {
 		message: req.body.message,
 		picture: req.file !== null ? "./uploads/posts/" + fileName : "",
 		video: req.body.video,
+		reddit: req.body.reddit,
 		timestamps: req.body.timestamps,
 	};
 
 	try {
-		const sqlRequest = `INSERT INTO post (poster_id, post_message, post_picture, post_video, post_date ) VALUES ('${newPost.posterId}', '${newPost.message}', '${newPost.picture}', '${newPost.video}', '${newPost.timestamps}')`;
+		const sqlRequest = `INSERT INTO post (poster_id, post_message, post_picture, post_video, post_date, post_reddit ) VALUES ('${newPost.posterId}', '${newPost.message}', '${newPost.picture}', '${newPost.video}', '${newPost.timestamps}', '${newPost.reddit}')`;
 		db.query(sqlRequest, (err, result) => {
 			if (err) {
 				res.status(500).json({ err });
@@ -42,7 +48,7 @@ module.exports.createPost = async (req, res, next) => {
 
 // get all posts
 module.exports.getAllPosts = (req, res, next) => {
-	const sqlRequest = "SELECT * FROM post ORDER BY post_date ASC";
+	const sqlRequest = "SELECT * FROM post ORDER BY post_id DESC";
 	db.query(sqlRequest, (err, result) => {
 		if (err) res.status(404).json({ err });
 		res.status(200).json(result);
@@ -60,14 +66,20 @@ module.exports.updatePost = (req, res, next) => {
 	});
 };
 
-// delete post
+// delete post and all the comments
 module.exports.deletePost = (req, res, next) => {
 	const sqlRequest = `DELETE FROM post WHERE post_id = ${req.params.id}`;
 	db.query(sqlRequest, (err, result) => {
 		if (err) {
 			res.status(404).json({ err });
 		}
-		res.status(200).json(result);
+		const sqlRequest = `DELETE FROM comment WHERE comment_post_id = ${req.params.id}`;
+		db.query(sqlRequest, (err, result) => {
+			if (err) {
+				res.status(404).json({ err });
+			}
+			res.status(200).json(result);
+		});
 	});
 };
 

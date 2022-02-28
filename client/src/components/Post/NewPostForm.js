@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../AppContext";
-import { isEmpty, timestampParser } from "../Utils";
+import { timestampParser } from "../Utils";
 
 const NewPostForm = () => {
 	const userId = useContext(UserContext);
@@ -33,9 +33,8 @@ const NewPostForm = () => {
 	const [message, setMessage] = useState("");
 	const [postPicture, setPostPicture] = useState(null);
 	const [video, setVideo] = useState("");
+	const [reddit, setReddit] = useState("");
 	const [file, setFile] = useState();
-	const userData = 2;
-	const error = 2;
 
 	const handlePost = async () => {
 		if (message || postPicture || video) {
@@ -44,7 +43,8 @@ const NewPostForm = () => {
 			formData.append("message", message);
 			if (file) formData.append("file", file);
 			formData.append("video", video);
-			formData.append("timestamps", "1973-11-17");
+			formData.append("reddit", reddit);
+			formData.append("timestamps", timestampParser(Date.now()));
 
 			axios({
 				method: "post",
@@ -81,6 +81,7 @@ const NewPostForm = () => {
 		setMessage("");
 		setPostPicture("");
 		setVideo("");
+		setReddit("");
 		setFile("");
 	};
 
@@ -99,7 +100,23 @@ const NewPostForm = () => {
 		};
 
 		handleVideo();
-	}, [userData, message, video]);
+	}, [message, video]);
+
+	useEffect(() => {
+		const handleReddit = () => {
+			let findLink = message.split(" ");
+			for (let i = 0; i < findLink.length; i++) {
+				if (findLink[i].includes("https://www.redd") || findLink[i].includes("https://reddit")) {
+					setReddit(findLink[i]);
+					findLink.splice(i, 1);
+					setMessage(findLink.join(" "));
+					setPostPicture("");
+				}
+			}
+		};
+
+		handleReddit();
+	}, [message, reddit]);
 
 	return (
 		<div className="post-container">
@@ -123,7 +140,11 @@ const NewPostForm = () => {
 						</div>
 						<div className="card-preview">
 							<div className="content">
-								<p>{message}</p>
+								<p>
+									{message}
+									<br />
+									{reddit && <a href={reddit}>Lien Reddit</a>}
+								</p>
 								{postPicture && <img src={postPicture} alt="" className="img-preview" />}
 								{video && <iframe src={video} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen title={video}></iframe>}
 							</div>
@@ -136,13 +157,11 @@ const NewPostForm = () => {
 						{!video && (
 							<>
 								<img src="./assets/pictos/image.svg" alt="add pic" />
-								<input type="file" id="fileUpload" name="file" accept=".jpg, .jpeg, .png" onChange={(e) => handlePicture(e)} />
+								<input type="file" id="fileUpload" name="file" accept=".jpg, .jpeg, .png, .gif" onChange={(e) => handlePicture(e)} />
 							</>
 						)}
 						{video && <button onClick={() => setVideo("")}>Supprimer vidéo</button>}
 					</div>
-					{!isEmpty(error.format) && <p>{error.format}</p>}
-					{!isEmpty(error.maxSize) && <p>{error.maxSize}</p>}
 					<div className="btn-send">
 						{message || postPicture || video.length > 20 ? (
 							<button className="cancel" onClick={cancelPost}>

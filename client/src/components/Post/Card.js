@@ -90,6 +90,11 @@ const Card = ({ post }) => {
 					</div>
 				)}
 				{post.post_picture && <img src={post.post_picture} alt="card-pic" className="card-pic" />}
+				{post.post_reddit && (
+					<a href={post.post_reddit} className="reddit-link">
+						Lien Reddit
+					</a>
+				)}
 				{post.post_video && <iframe width="500" height="300" src={post.post_video} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen title={post.poster_id}></iframe>}
 				{userId === post.poster_id && (
 					<div className="button-container">

@@ -51,6 +51,22 @@
 		border-radius: 7px;
 		margin-bottom: 1em;
 	}
+	.reddit-link {
+		display: block;
+		margin: 0 auto;
+		width: 120px;
+		border-radius: 20px;
+		padding: 0.5em;
+		background-color: $color-tertiary;
+		text-align: center;
+		color: white;
+		&:hover {
+			transform: scale(1.01);
+		}
+		&:active {
+			transform: scale(0.99);
+		}
+	}
 	.card-pic {
 		width: 100%;
 		object-fit: cover;

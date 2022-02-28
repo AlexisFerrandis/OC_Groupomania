@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../AppContext";
-import { isEmpty, timestampParser } from "../Utils";
+import { timestampParser } from "../Utils";
 import DeleteComment from "./DeleteComment";
 
 const CardComments = ({ post }) => {
@@ -49,7 +49,7 @@ const CardComments = ({ post }) => {
 					commentUserLastName: getPosterInfo.user_last_name,
 					commentUserPicture: getPosterInfo.user_picture,
 					message: message,
-					timestamps: "1973-11-17",
+					timestamps: timestampParser(Date.now()),
 				},
 			})
 				.then((res) => {
@@ -83,8 +83,6 @@ const CardComments = ({ post }) => {
 				});
 		};
 		getCommentInfo();
-
-		if (allComments);
 	}, []);
 
 	return (
@@ -105,7 +103,7 @@ const CardComments = ({ post }) => {
 									<h3>{comment.comment_user_first_name + " " + comment.comment_user_last_name}</h3>
 								</div>
 							</div>
-							<span>{timestampParser(comment.comment_date)}</span>
+							<span>{comment.comment_date}</span>
 						</div>
 						<div className="bottom-part">
 							<p>{comment.comment_message}</p>
