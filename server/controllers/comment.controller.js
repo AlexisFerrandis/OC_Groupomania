@@ -30,5 +30,11 @@ module.exports.commentPost = async (req, res, next) => {
 
 // delete a comment
 module.exports.deleteCommentPost = async (req, res, next) => {
-	next();
+	const sqlRequest = `DELETE FROM comment WHERE comment_id = ${req.params.id}`;
+	db.query(sqlRequest, (err, result) => {
+		if (err) {
+			res.status(404).json({ err });
+		}
+		res.status(200).json(result);
+	});
 };

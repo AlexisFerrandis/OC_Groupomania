@@ -89,27 +89,27 @@ const CardComments = ({ post }) => {
 
 	return (
 		<div className="comments-container">
-			<h4>Commentaires</h4>
+			<h2>Commentaires</h2>
 			<form action="" onSubmit={handleComment} className="comment-form">
 				<input type="text" name="text" onChange={(e) => setMessage(e.target.value)} value={message} placeholder="Laisser un commentaire" />
 				<br />
-				<input type="submit" value="envoyer" />
+				<input type="submit" value="Envoyer" />
 			</form>
 			{allComments.map((comment) => {
 				return (
-					<div className="comment-container" key={comment.comment_id}>
-						<div className="left-part">
-							<img src={comment.comment_user_picture} alt="commenter-pic" />
-						</div>
-						<div className="right-part">
-							<div className="comment-header">
+					<div className="comment-container" key={comment.comment_id} id={comment.comment_id}>
+						<div className="up-part">
+							<div className="infos">
+								<img src={comment.comment_user_picture} alt="commenter-pic" />
 								<div className="name">
 									<h3>{comment.comment_user_first_name + " " + comment.comment_user_last_name}</h3>
 								</div>
-								<span>{timestampParser(comment.comment_date)}</span>
 							</div>
+							<span>{timestampParser(comment.comment_date)}</span>
+						</div>
+						<div className="bottom-part">
 							<p>{comment.comment_message}</p>
-							<DeleteComment comment={comment} postId={post.post_id} />
+							{userId === comment.comment_user_id && <DeleteComment comment={comment} />}
 						</div>
 					</div>
 				);
