@@ -39,7 +39,7 @@ const UpdateProfil = () => {
 			{" "}
 			<div className="profil-container">
 				<UploadImg img={userPic} userId={userId} userFirstName={userFirstName} />
-				<UserInfos userFirstName={userFirstName} userLastName={userLastName} userMail={userMail} />
+				<UserInfos userFirstName={userFirstName} userLastName={userLastName} userMail={userMail} userId={userId} />
 			</div>
 		</>
 	);

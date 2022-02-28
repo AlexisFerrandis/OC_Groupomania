@@ -130,7 +130,7 @@ const NewPostForm = () => {
 			<div className="post-form">
 				<textarea name="message" id="message" placeholder="Commencer un post" onChange={(e) => setMessage(e.target.value)} value={message} />
 
-				{message || postPicture || video.length > 20 ? (
+				{message || postPicture || video.length > 20 || reddit ? (
 					<li className="card-container">
 						<div className="card-header">
 							{userPic && <img src={userPic} alt="user-img" className="user-img" />}

@@ -28,8 +28,6 @@ const UploadImg = ({ userId, userFirstName }) => {
 
 	// change pic
 	const handlePicture = (e) => {
-		e.preventDefault();
-
 		const formData = new FormData();
 		formData.append("name", userFirstName);
 		formData.append("userId", userId);

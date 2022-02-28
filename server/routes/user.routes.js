@@ -10,7 +10,7 @@ const upload = multer();
 router.post("/register", authController.signUp);
 router.post("/login", authController.signIn);
 router.get("/logout", authController.logout);
-
+router.patch("/delete-account/:id", checkUser, authController.deleteAccount);
 // user
 router.get("/:id", checkUser, userController.userInfo);
 router.post("/upload", checkUser, upload.single("file"), userController.updateImgProfil);

@@ -6,9 +6,7 @@ const pipeline = promisify(require("stream").pipeline);
 // user unfo
 module.exports.userInfo = (req, res, next) => {
 	const { id: userId } = req.params;
-	const sqlRequest = `SELECT * FROM user WHERE user_id = ${userId};`;
-
-	// DELETE PASSWORD
+	const sqlRequest = `SELECT user_id, user_first_name, user_last_name, user_mail, user_picture, isAdmin, isDeleted FROM user WHERE user_id = ${userId};`;
 
 	db.query(sqlRequest, (err, result) => {
 		if (err) {
