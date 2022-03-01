@@ -9,6 +9,7 @@ const SignInForm = () => {
 		e.preventDefault();
 		const error = document.querySelector(".error");
 
+		// mail regex
 		if (mail.length < 24 && (mail.length > 6) & /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(mail)) {
 			error.innerHTML = "";
 

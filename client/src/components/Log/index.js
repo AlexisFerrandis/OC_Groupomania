@@ -6,6 +6,7 @@ const Log = () => {
 	const [signUpModal, setSignUpModal] = useState(true);
 	const [signInModal, setSignInModal] = useState(false);
 
+	// signin signup modals
 	const handleModals = (e) => {
 		if (e.target.id === "register") {
 			setSignInModal(false);

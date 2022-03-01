@@ -4,6 +4,8 @@ import Logout from "../Log/Logout";
 import cookie from "js-cookie";
 
 const UserInfos = ({ userFirstName, userLastName, userMail, userId }) => {
+	// logout and delete account
+
 	const removeCookie = (key) => {
 		if (window !== "undefined") {
 			cookie.remove(key);

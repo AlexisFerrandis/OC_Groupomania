@@ -9,6 +9,13 @@ const NewPostForm = () => {
 	const [userPic, setUserPic] = useState();
 	const [userFirstName, setUserFirstName] = useState();
 
+	const [message, setMessage] = useState("");
+	const [postPicture, setPostPicture] = useState(null);
+	const [video, setVideo] = useState("");
+	const [reddit, setReddit] = useState("");
+	const [file, setFile] = useState();
+
+	// get user info
 	useEffect(() => {
 		const getUserInfo = async () => {
 			await axios({
@@ -30,12 +37,7 @@ const NewPostForm = () => {
 		if (userFirstName && userPic);
 	}, [userId, userFirstName, userPic]);
 
-	const [message, setMessage] = useState("");
-	const [postPicture, setPostPicture] = useState(null);
-	const [video, setVideo] = useState("");
-	const [reddit, setReddit] = useState("");
-	const [file, setFile] = useState();
-
+	// post submit validation
 	const handlePost = async () => {
 		if (message || postPicture || video) {
 			const formData = new FormData();
@@ -71,12 +73,14 @@ const NewPostForm = () => {
 		}
 	};
 
+	// if pic
 	const handlePicture = (e) => {
 		setPostPicture(URL.createObjectURL(e.target.files[0]));
 		setFile(e.target.files[0]);
 		setVideo("");
 	};
 
+	// reinitialize inputs
 	const cancelPost = () => {
 		setMessage("");
 		setPostPicture("");
@@ -85,6 +89,7 @@ const NewPostForm = () => {
 		setFile("");
 	};
 
+	// if video
 	useEffect(() => {
 		const handleVideo = () => {
 			let findLink = message.split(" ");
@@ -102,6 +107,7 @@ const NewPostForm = () => {
 		handleVideo();
 	}, [message, video]);
 
+	// if reddit link
 	useEffect(() => {
 		const handleReddit = () => {
 			let findLink = message.split(" ");

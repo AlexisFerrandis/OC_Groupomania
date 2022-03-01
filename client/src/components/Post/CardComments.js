@@ -36,7 +36,7 @@ const CardComments = ({ post }) => {
 		if (getPosterInfo);
 	}, []);
 
-	// handle comment post
+	// handle post comment
 	const handleComment = (e) => {
 		e.preventDefault();
 
@@ -98,7 +98,7 @@ const CardComments = ({ post }) => {
 		if (allComments);
 	}, []);
 
-	// is user admin
+	// check if user is admin
 	useEffect(() => {
 		const checkAdmin = async () => {
 			await axios({

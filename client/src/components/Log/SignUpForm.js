@@ -18,6 +18,7 @@ const SignUpForm = () => {
 		const passwordError = document.querySelector(".password.error");
 		const passwordConfirmError = document.querySelector(".password-confirm.error");
 
+		// actualising error
 		firstnameError.innerHTML = "";
 		lastnameError.innerHTML = "";
 		mailError.innerHTML = "";
@@ -26,6 +27,7 @@ const SignUpForm = () => {
 
 		// regex
 		function inputValidation() {
+			// front errors
 			if (firstname.length < 24 && firstname.length >= 3 && /^([A-Za-z]{3,20})?([-]{0,1})?([A-Za-z]{3,20})$/.test(firstname)) {
 				if (lastname.length < 24 && lastname.length >= 3 && /^([A-Za-z]{3,20})?([-]{0,1})?([A-Za-z]{3,20})$/.test(lastname)) {
 					if (mail.length < 24 && mail.length > 6 && /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(mail)) {
@@ -65,6 +67,7 @@ const SignUpForm = () => {
 				})
 					.then((res) => {
 						if (res.data.errors) {
+							// back errors
 							firstnameError.innerHTML = res.data.errors.firstname;
 							lastnameError.innerHTML = res.data.errors.lastname;
 							mailError.innerHTML = res.data.errors.email;

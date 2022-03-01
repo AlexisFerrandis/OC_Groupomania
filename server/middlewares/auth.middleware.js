@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 
+// deliver jwt
 module.exports.requireAuth = (req, res, next) => {
 	const token = req.cookies.jwt;
 	try {
@@ -22,6 +23,7 @@ module.exports.requireAuth = (req, res, next) => {
 	}
 };
 
+// check jwt on every routes
 module.exports.checkUser = (req, res, next) => {
 	const token = req.cookies.jwt;
 	if (token) {

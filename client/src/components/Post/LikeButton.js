@@ -27,7 +27,7 @@ const LikeButton = ({ post }) => {
 		if (userId);
 	}, [userId, post.post_id]);
 
-	// is user already liked
+	// does user already liked
 	useEffect(() => {
 		const alreadyLike = async () => {
 			await axios({
@@ -54,7 +54,7 @@ const LikeButton = ({ post }) => {
 		if (userId);
 	}, [userId, post.post_id]);
 
-	// handle like
+	// check if it's a like or an unlike
 	const handleLike = () => {
 		axios({
 			method: "post",

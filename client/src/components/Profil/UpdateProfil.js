@@ -4,6 +4,7 @@ import axios from "axios";
 import UploadImg from "./UploadImg";
 import UserInfos from "./UserInfos";
 
+// container for profil
 const UpdateProfil = () => {
 	const userId = useContext(UserContext);
 	const [userPic, setUserPic] = useState();
@@ -11,6 +12,7 @@ const UpdateProfil = () => {
 	const [userLastName, setUserLastName] = useState();
 	const [userMail, setUserMail] = useState();
 
+	// user info
 	useEffect(() => {
 		const getUserInfo = async () => {
 			await axios({

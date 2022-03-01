@@ -1,3 +1,4 @@
+// signup errors
 module.exports = (err) => {
 	let errors = {
 		firstname: "",

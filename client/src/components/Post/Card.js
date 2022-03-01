@@ -18,7 +18,7 @@ const Card = ({ post }) => {
 	const [textUpdate, setTextUpdate] = useState();
 	const [showComments, setShowComments] = useState(false);
 
-	// get poster info
+	// get poster card info
 	useEffect(() => {
 		const getPosterInfo = async () => {
 			await axios({
@@ -40,7 +40,7 @@ const Card = ({ post }) => {
 		if (posterPic);
 	}, [posterPic, post.poster_id]);
 
-	// update publication
+	// update the publication
 	const updateItem = () => {
 		if (textUpdate) {
 			axios({
@@ -63,7 +63,7 @@ const Card = ({ post }) => {
 		setIsUpdated(false);
 	};
 
-	// is user admin
+	// check if user is admin
 	useEffect(() => {
 		const checkAdmin = async () => {
 			await axios({
